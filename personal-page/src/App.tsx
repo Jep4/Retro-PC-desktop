@@ -5,19 +5,19 @@ import './App.css';
 
 function App() {
   return (
-    <body className="App">
-        <MainWindow left="30px" top="17px" width="400px" height="600px">
+    <div className="App">
+        <MainWindow left="30px" top="17px" width="400px" height="600px" title="GAME WINDOW">
           <GameWindow/>
         </MainWindow>
+{
+        <MainWindow left="330px" top="230px" width="500px" height="300px" title="CHAT WINDOW">
 
-        <MainWindow left="330px" top="230px" width="500px" height="300px">
-
-        </MainWindow>
-
-        
+        </MainWindow> }
 
         
-    </body>
+
+        
+    </div>
   );
 }
 
