@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap');
+
+*{
+    
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.window-wrapper {
+    position: absolute;
+    display:grid;
+    grid-template-rows: 28px auto;
+    margin: 10px;
+    color: white;
+    background-color: black;
+    border: 1px solid white;
+}
+
+.nav-bar{
+    display:grid;
+    grid-template-columns: 2fr auto auto auto;
+    color: white;
+    border: 1px solid white;
+    padding:4px;
+}
+.btn{
+    color: white;
+    border: 1px solid white;
+    width:15px;
+    height:15px;
+    margin-left: 2px;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 3px;
+}
+
+
+
+/*   GAME WINDOW    */
+
+
+.snow {
+    
+    color: white;
+    border: 1px solid white;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  
+
+  .window-graphic{
+
+    color: white;
+    border: 1px solid white;
+    width: 180px;
+    height:280px;
+
+    margin-left: 27%;
+    margin-top: 10%;
+
+    display: grid;
+    grid-template-rows: 15px auto;
+  }
+
+  .game-text-filed {
+    margin:14px;
+    margin-top:30px;
+    letter-spacing: 2px;
+    font-size:14pt;
+  }
+
+  .upper-window{
+
+    color: white;
+    background-color: white;
+    border: 1px solid black;
+  }
