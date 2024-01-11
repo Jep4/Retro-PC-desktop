@@ -3,6 +3,7 @@ import MainWindow from './components/MainWindow';
 import GameWindow from './components/GameWindow';
 import ChatWindow from './components/ChatWindow';
 import MouseLight from './effects/MouseLight';
+import FileWindow from './components/FileWindow';
 import './App.css';
 
 function App() {
@@ -12,7 +13,11 @@ function App() {
         <GameWindow />
       </MainWindow>
 
-      <MainWindow left="330px" top="230px" width="500px" height="370px" title="MESSANGER">
+      <MainWindow left="330px" top="230px" width="500px" height="370px" title="FILE EXPLORER">
+        <FileWindow></FileWindow>
+      </MainWindow>
+      
+      <MainWindow left="550px" top="480px" width="300px" height="370px" title="MESSANGER">
         <ChatWindow></ChatWindow>
       </MainWindow>
 

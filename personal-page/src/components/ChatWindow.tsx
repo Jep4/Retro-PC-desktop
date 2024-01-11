@@ -11,7 +11,7 @@ function ChatWindow() {
             <div className='old-messages'>
                 {tempMessage.msgs.map((msg, index)=>(
                     <div className='msg' key={index}>
-                        <span className='chat-user'>{tempMessage.user[index]}@linux-desktop $ </span>
+                        <span className='chat-user'>{tempMessage.user[index]}@desktop $ </span>
                         {msg}
                         <button className='message-delete'>X</button>
                     </div>
@@ -20,7 +20,7 @@ function ChatWindow() {
             <form className='message-input-field'>
                 <input className='user-input' placeholder='Username' required></input>
                 <input className='message-input' placeholder='Enter your message...' required></input>
-                <button className='submit-btn' type='submit'> ▼</button>
+                <button className='submit-btn' type='submit'></button>
             </form>
         </div>
     );
