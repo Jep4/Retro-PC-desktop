@@ -1,22 +1,27 @@
 import React from 'react';
 import MainWindow from './components/MainWindow';
 import GameWindow from './components/GameWindow';
+import ChatWindow from './components/ChatWindow';
+import MouseLight from './effects/MouseLight';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-        <MainWindow left="30px" top="17px" width="400px" height="600px" title="GAME WINDOW">
-          <GameWindow/>
-        </MainWindow>
-{
-        <MainWindow left="330px" top="230px" width="500px" height="300px" title="CHAT WINDOW">
+      <MainWindow left="30px" top="17px" width="400px" height="600px" title="TEXT ADVENTURE">
+        <GameWindow />
+      </MainWindow>
 
-        </MainWindow> }
+      <MainWindow left="330px" top="230px" width="500px" height="370px" title="MESSANGER">
+        <ChatWindow></ChatWindow>
+      </MainWindow>
 
-        
+      {/* Issue: not working after refresh
+          Thought: Might be an rendering issue
+          Todo: add loading bar to check
+          <MouseLight>
+          </MouseLight> */}
 
-        
     </div>
   );
 }
