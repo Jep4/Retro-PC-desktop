@@ -103,11 +103,17 @@
   .chat-user{
     color: green;
   }
-  
+
   .user-input{
-    width:100px;
+    width:70px;
     margin-left:20px;
   }
+  
+  .message-input{
+    width: 150px;
+    margin-left:30px;
+  }
+  
 
   input{
     background-color: black;

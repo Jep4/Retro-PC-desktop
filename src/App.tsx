@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MainWindow from './components/MainWindow';
 import GameWindow from './components/GameWindow';
 import ChatWindow from './components/ChatWindow';
-import MouseLight from './effects/MouseLight';
 import FileWindow from './components/FileWindow';
 import './App.css';
 
 function App() {
+
   return (
     <div className="App">
       <MainWindow left="30px" top="17px" width="400px" height="600px" title="TEXT ADVENTURE">
@@ -16,7 +16,7 @@ function App() {
       <MainWindow left="330px" top="230px" width="500px" height="370px" title="FILE EXPLORER">
         <FileWindow></FileWindow>
       </MainWindow>
-      
+
       <MainWindow left="550px" top="480px" width="300px" height="370px" title="MESSANGER">
         <ChatWindow></ChatWindow>
       </MainWindow>
