@@ -20,7 +20,6 @@ function App() {
       <MainWindow left="550px" top="480px" width="300px" height="370px" title="MESSANGER">
         <ChatWindow></ChatWindow>
       </MainWindow>
-
       {/* Issue: not working after refresh
           Thought: Might be an rendering issue
           Todo: add loading bar to check

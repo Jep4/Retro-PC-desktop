@@ -6,8 +6,8 @@ function MouseLight({ children }: any) {
     const focusLight = document.querySelector(".light") as HTMLDivElement;
         function lightMoving() {
             if(focusLight){
-            let focusX = `50px`
-            let focusY = `50px`
+            let focusX = `350px`
+            let focusY = `350px`
             focusLight.style.background = `radial-gradient(
             circle 900px at ${focusX} ${focusY},
             rgba(0, 0, 0, 0.01) 0%,
