@@ -12,28 +12,28 @@ npm run start
 
 ### New features / items
 - [ ] Create nav bar
-    - [ ] Clock <5>
+    - [ ] Clock <6>
     - [ ] Current windows
     - [ ] All aplications 
-- [ ] Create simple online compiler<8>
-- [ ] Create login feature <6>
-- [ ] Create Music player <7>
+- [ ] Create simple online compiler<9>
+- [ ] Create login feature <7>
+- [ ] Create Music player <8>
 
 ### Improve 
 - [ ] Add interaction in game window
-    - [ ] Sudoku <4>
+    - [ ] Sudoku <5>
     - [ ] Highest score
 - [ ] Main window
     - [ ] Contact me, personal info <4>
 -  [ ] Chat
     - [ ] Delete feature for admin / author <3>
-    - [ ] Group messages by date
+    - [ ] Group messages by date / sort by time 
 - [ ] File Explorer 
     - [ ] Link to other websites
 - [ ] Window
-    - [ ] Users can change the size
+    - [ ] Users can change the size <10>
     - [ ] implement minimize, maximize, close feature
 
 ## Data
-- [ ] SQL Query -> Sequelize <1>
+- [x] SQL Query -> Sequelize <1>
 - [ ] Autheticate / Security <2>
