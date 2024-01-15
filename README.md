@@ -34,6 +34,6 @@ npm run start
     - [ ] Users can change the size <10>
     - [ ] implement minimize, maximize, close feature
 
-## Data
+### Data
 - [x] SQL Query -> Sequelize <1>
 - [ ] Autheticate / Security <2>
