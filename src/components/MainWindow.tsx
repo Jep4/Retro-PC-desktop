@@ -44,9 +44,9 @@ function MainWindow({ children, left, top, width, height, title }: any) {
         <div className='window-wrapper' style={{ left: position.left, top: position.top, width: width, height: height }}>
             <div className='nav-bar' onMouseDown={handleMouseDown}>
                 <div className='title-area' >{title}</div>
-                <div className='minimize btn'>_</div>
-                <div className='maximize btn'>◻</div>
-                <div className='close btn'>X</div>
+                <div className='minimize nav-btn'>_</div>
+                <div className='maximize nav-btn'>◻</div>
+                <div className='close nav-btn'>X</div>
             </div>
 
             <div className='main-window'>

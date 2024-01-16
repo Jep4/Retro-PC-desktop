@@ -54,7 +54,7 @@ function GameWindow() {
                 The window leads you up into darkness ... Lorem ipsum dolor sit amet.
                 <br></br>
                 <br></br>
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ▼
+                <button className="btn">See Ranking</button>
             </div>
         </div>
         

@@ -3,6 +3,7 @@ import GameWindow from './components/GameWindow';
 import ChatWindow from './components/ChatWindow';
 import FileWindow from './components/FileWindow';
 import LoginWindow from './components/LoginWindow';
+import TaskBar from './components/TaskBar';
 import './App.css';
 function App() {
 
@@ -21,9 +22,11 @@ function App() {
         <ChatWindow></ChatWindow>
       </MainWindow>
 
-      <MainWindow left="700px" top="100px" width="300px" height="370px" title="LOGIN">
+      <MainWindow left="700px" top="100px" width="500px" height="170px" title="LOGIN">
         <LoginWindow></LoginWindow>
       </MainWindow>
+
+      <TaskBar></TaskBar>
 
       {/* Issue: not working after refresh
           Thought: Might be an rendering issue

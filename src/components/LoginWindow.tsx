@@ -8,18 +8,16 @@ function LoginWindow() {
 
     class Login extends React.Component{
         render(){
-            return (<div>
+            return (<div className='login-wrapper'>
                 <form>
                     <input type='text' placeholder='Enter your ID...' required>
                     </input>
                     <input type='password' placeholder='Enter your password...' required>
                     </input>
-                    <button type='submit'>
-                        Submit
-                    </button>
-                    <p>No account?</p>
-                    <button>Register</button>
+                    <button className ='btn' type='submit'> Submit</button>
                 </form>
+                    No account?
+                    <button className='register-button btn'>Register  &gt; &gt; </button>
             </div>)
         }
     }
@@ -35,10 +33,11 @@ function LoginWindow() {
                     <button type='submit'>
                         Confirm
                     </button>
-                    <p>Already have an accout?</p>
-                    <button>Register</button>
-                    
                 </form>
+                
+                <p>Already have an accout?</p>
+                    <button className='login-button btn'>Login &gt; &gt; </button>
+                    
             </div>)
         }
     }
@@ -66,7 +65,7 @@ function LoginWindow() {
 
 
     return (
-        <div className='loginWrapper'>
+        <div className='login-register-wrapper'>
             {loginControl()}
         </div>
     );
