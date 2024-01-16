@@ -9,8 +9,8 @@ function FileWindow() {
     return (
         <div className='folderWrapper'>
             {tempFile.map((file, index) => (
-                <div className='one-file'>
-                    <div className='folder' key={index}>
+                <div className='one-file' key={index}>
+                    <div className='folder' >
                         🗒️
                     </div>
                     <span>

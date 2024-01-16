@@ -13,6 +13,7 @@ const sequelize = new Sequelize(
     }
 )
 
+
 // const connection = mysql.createPool({
 //     host: 'localhost',
 //     user: 'root',

@@ -22,7 +22,7 @@ function App() {
         <ChatWindow></ChatWindow>
       </MainWindow>
 
-      <MainWindow left="700px" top="100px" width="500px" height="170px" title="LOGIN">
+      <MainWindow left="700px" top="100px" width="500px" height="200px" title="LOGIN">
         <LoginWindow></LoginWindow>
       </MainWindow>
 

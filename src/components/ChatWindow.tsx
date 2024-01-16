@@ -2,18 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import "./MainWindow.css"
 import moment from 'moment';
+import models from '../server/models';
 
-interface Message {
-    id: string;
-    body: string;
-    created: string;
-}
 
 function ChatWindow() {
     
     const [data, setData] = useState([]);
     const [idValue, setIdValue] = useState("");
     const [messageValue, setMessageValue] = useState("");
+    
 
     useEffect(()=>{
         fetchData();
@@ -21,20 +18,19 @@ function ChatWindow() {
 
     const fetchData = async () => {
         try{
-            const res = await axios.get("http://localhost:8080/api");
+            const res = await axios.get("http://localhost:8080/chat");
             setData(res.data);
         }
         catch(e){
             console.error("Error fetching data:", e);
         }
     }
-
+    
     const newMessage = async () => {
         try{
-        await axios.post("http://localhost:8080/api", {
+        await axios.post("http://localhost:8080/chat", {
             id: idValue,
             body: messageValue,
-            created: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
         });
 
         await fetchData();
@@ -46,18 +42,27 @@ function ChatWindow() {
         }
     }
 
-    const tempMessage = data;
+    const deleteMessage = async(id: number) =>{
+        try{
+            await axios.delete(`http://localhost:8080/chat/${id}`);
+            fetchData();
+        }
+        catch(e){
+            console.error("Error fetching data:", e);
+        }
+    }
+
     return (
         <div className='chat-wrapper'>
             <div className='old-messages'>
-                {tempMessage.map((msg: Message, index: number) => (
+                {data.map((msg: typeof models.Message, index: number) => (
                     <div className='msg' key={index}>
-                        <span className='chat-user'>{msg.id}@desktop $ </span>
+                        <span className='chat-user'>{msg.user_id}@desktop $ </span>
                         {msg.body}
                         &nbsp;
                         &nbsp;
-                        {moment(msg.created).format("HH:mm")}
-                        <button className='message-delete'>X</button>
+                        {moment(msg.createdAt).format("HH:mm")}
+                        <button className='message-delete' onClick={(e)=>{e.preventDefault(); deleteMessage(msg.id)}}>X</button>
                     </div>
                 ))}
             </div>
