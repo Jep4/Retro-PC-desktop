@@ -22,13 +22,6 @@ app.use(session({
   secret: 'very secret',
   resave: false,
   saveUninitialized: true,
-  cookie: {
-    path: '/',
-    maxAge: 24 * 6 * 60 * 10000,
-    sameSite: 'None',
-    httpOnly: true,
-    secure: true,
-  },
   store: sessionStore     
 }))
 const port = 8080

@@ -322,3 +322,30 @@ form>input{
   background-color: black;
 color:white;
 }
+
+
+/* MUSIC PLAYER */
+
+.music-bar{
+  background-color: lightgray;
+  margin: 10px;
+  margin-top: 100px;
+  height: 10px;
+  border-radius: 10px;
+}
+
+.music-btn-wrapper{
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.music-back-btn{
+  font-weight: 400;
+}
+.music-play-btn{
+  font-weight: 400;
+}
+.music-next-btn{
+  font-weight: 400;
+}

@@ -4,6 +4,7 @@ import ChatWindow from './components/ChatWindow';
 import FileWindow from './components/FileWindow';
 import LoginWindow from './components/LoginWindow';
 import TaskBar from './components/TaskBar';
+import MusicWindow from './components/MusicWindow';
 import './App.css';
 function App() {
 
@@ -24,6 +25,9 @@ function App() {
 
       <MainWindow left="700px" top="100px" width="500px" height="200px" title="LOGIN">
         <LoginWindow></LoginWindow>
+      </MainWindow>
+      <MainWindow left="100" top="600px" width="500px" height="200px" title="MUSIC PLAYER">
+        <MusicWindow></MusicWindow>
       </MainWindow>
 
       <TaskBar></TaskBar>
