@@ -41,7 +41,12 @@
   color:black;
 }
 
-
+.minimized {
+  display: none;
+}
+.showing {
+  display: block;
+}
 
 /*   GAME WINDOW    */
 
@@ -241,8 +246,10 @@ form>input{
   bottom: 0;
   width:100%;
   height: 40px;
+  display:grid;
+  grid-template-columns: 130px 170px 170px 170px 170px 170px;
 
-  z-index: -1;
+  z-index: 2;
 }
 
 .taskbar-apps, .taskbar-menu {
@@ -324,6 +331,13 @@ color:white;
 }
 
 
+.active-taskbar{
+  background-color: gray;
+  border-left: 3px solid black;
+  border-top: 3px solid black;
+  margin-top: 4px;
+  box-shadow: none;
+}
 /* MUSIC PLAYER */
 
 .music-bar{

@@ -8,6 +8,8 @@ import MusicWindow from './components/MusicWindow';
 import './App.css';
 function App() {
 
+  const appNames = ["Sudoku", "File-Explorer", "Messanger", "Login", "Music-Player"]
+
   return (
     
     <div className="App">
@@ -26,17 +28,11 @@ function App() {
       <MainWindow left="700px" top="100px" width="500px" height="200px" title="LOGIN">
         <LoginWindow></LoginWindow>
       </MainWindow>
-      <MainWindow left="100" top="600px" width="500px" height="200px" title="MUSIC PLAYER">
+      <MainWindow className="Music-Player" left="100" top="600px" width="500px" height="200px" title="MUSIC PLAYER">
         <MusicWindow></MusicWindow>
       </MainWindow>
 
-      <TaskBar></TaskBar>
-
-      {/* Issue: not working after refresh
-          Thought: Might be an rendering issue
-          Todo: add loading bar to check
-          <MouseLight>
-          </MouseLight> */}
+      <TaskBar props={appNames}></TaskBar>
 
     </div>
   );

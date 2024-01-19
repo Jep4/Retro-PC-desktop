@@ -3,16 +3,18 @@ import "./MainWindow.css"
 
 
 
-function MainWindow({ children, left, top, width, height, title }: any) {
+function MainWindow({ children, left, top, width, height, title, classname }: any) {
 
     left = Number(left.replace(/[^0-9]/g, ""))
     top = Number(top.replace(/[^0-9]/g, ""))
     const [isDragging, setIsDragging] = useState(false);
     const [position, setPosition] = useState({ left: left, top: top });
     const [startDragPosition, setStartDragPosition] = useState({ x: 0, y: 0 });
+    const [showWindow, setShowWindow] = useState(true);
 
     useEffect(() => {
         const handleDrag = (e: MouseEvent) => {
+
             if (isDragging) {
                 setPosition(position => ({
                     left: position.left + (e.clientX - startDragPosition.x),
@@ -39,14 +41,19 @@ function MainWindow({ children, left, top, width, height, title }: any) {
         setStartDragPosition({ x: e.clientX, y: e.clientY });
     };
 
+    const handleMinimize = () =>{
+        setShowWindow(false);
+    };
+
 
     return (
-        <div className='window-wrapper' style={{ left: position.left, top: position.top, width: width, height: height }}>
+        <div className={`window-wrapper ${classname} ${showWindow ? "showing" : "minimized"}` } 
+        style={{ left: position.left, top: position.top, width: width, height: height }}>
             <div className='nav-bar' onMouseDown={handleMouseDown}>
                 <div className='title-area' >{title}</div>
-                <div className='minimize nav-btn'>_</div>
+                <div className='minimize nav-btn' onClick={handleMinimize}>_</div>
                 <div className='maximize nav-btn'>◻</div>
-                <div className='close nav-btn'>X</div>
+                <div className='close nav-btn' onClick={handleMinimize}>X</div>
             </div>
 
             <div className='main-window'>
