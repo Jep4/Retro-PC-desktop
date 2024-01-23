@@ -45,7 +45,7 @@ useEffect(()=>{
                 });
                 
            alert("Successfully Registered!");
-            await axios.post("http://localhost:8080/auth", {
+            await axios.post("http://localhost:8080/login", {
                 id: username.value,
                 password: password.value,
                 is_admin: false
@@ -68,7 +68,10 @@ useEffect(()=>{
         let username = document.querySelector(".id-input") as HTMLInputElement;
         let password = document.querySelector(".pw-input") as HTMLInputElement;
         try {
-            await axios.post("http://localhost:8080/auth", {
+            axios.post("http://localhost:8080/login", {
+                withCredentials:true, 
+                credentials: 'include',
+                
                 id: username.value,
                 password: password.value,
                 is_admin: false
@@ -85,10 +88,9 @@ useEffect(()=>{
 
     const getUser = async () => {
         try {
-            const res = await axios.get("http://localhost:8080/logout");
-            userdata = res.data;
-            console.log(userdata)
-            return res.data;
+            const res = await axios.get("http://localhost:8080/getUser", {withCredentials:true});
+            userdata = res.data.uid;
+            return userdata;
         } catch (error) {
             console.error("Error fetching user:", error);
             return null;
@@ -138,16 +140,41 @@ useEffect(()=>{
         }
     }
 
-    class Logout extends React.Component {
+    interface LogoutState {
+        username: string | null; 
+    }
+
+    class Logout extends React.Component<{}, LogoutState> {
+        constructor(props:any) {
+            super(props);
+            this.state = {
+                username: null,
+            };
+        }
+    
+        async componentDidMount() {
+            try {
+                const user = await getUser();
+                this.setState({ username: user });
+            } catch (error) {
+                console.error("Error fetching user:", error);
+            }
+        }
+    
         render() {
+            const { username } = this.state;
+    
             return (
                 <div className='logout-wrapper'>
-                    <p>Hello, {userdata}</p>
-                <button className='logout-btn btn' onClick={goLogout}>LOGOUT</button>
+                    <p>Hello, {username}</p>
+                    <button className='logout-btn btn' onClick={goLogout}>
+                        LOGOUT
+                    </button>
                 </div>
-            )
+            );
         }
     }
+    
 
     function loginControl() {
 

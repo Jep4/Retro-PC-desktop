@@ -1,6 +1,6 @@
 const { sequelize } = require('./database');
 const { Message, User, Score } = require('./models')
-
+const bcrypt =  require("bcrypt")
 
 
 const getMsgs= async (req, res) => {
@@ -52,19 +52,23 @@ const register = async(req, res)=>{
 else{
     
     try{
-        await User.create({
-            user_id: username,
-            password: password,
-            is_admin: false
-        })
-        return res.status(200).json({
-            message: "Successfully Registered!",
+        await bcrypt.genSalt(10, (err, salt)=>{
+            bcrypt.hash(password, salt, function(err, hash){
+                User.create({
+                    user_id: username,
+                    password: hash,
+                    is_admin: false
+                })
+                return res.status(200).json({
+                    message: "Successfully Registered!",
+                })
+            })
         })
     }
     catch(e){
     res.status(401).json({
         message: "User not successful created",
-        error: error.message,
+        error: e.message,
       })
     }
 }
@@ -82,15 +86,30 @@ const login = async (req, res) => {
                 message: "Username or password not present.",
             });
         } else {
-            if (user[0].password === password) {
-                req.session.uid =user[0].user_id;
-                req.session.save(function(){
-                });
-                return res.status(200).json({
+            const passwordMatch = await bcrypt.compare(password, user[0].password);
+
+            if (passwordMatch) {
+                
+                res.send({
+                    uid: user[0].user_id,
                     message: "Successfully logged in!",
                 });
+                // req.session.uid =user[0].user_id;
+                // req.session.save(function(err) {
+                    // if (err) {
+                    //     console.error("Error saving session:", err);
+                    // } else {
+                    //     console.log("Session saved successfully:", req.session);
+
+                    //      res.send({
+                    //         uid: user[0].user_id,
+                    //         message: "Successfully logged in!",
+                    //     });
+
+                    // }
+                // });
             } else {
-                return res.status(600).json({
+                return res.status(401).json({
                     message: "Invalid password.",
                 });
             }
@@ -104,32 +123,36 @@ const login = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-    try {
-        if (req.session && req.session.uid) {
-            const user = await User.findAll({
-                where: { user_id: req.session.uid }
-            });
 
-            if (user.length!==0) {
-                return res.status(200).json({
-                    user,
-                });
-            } else {
-                return res.status(404).json({
-                    message: "User not found.",
-                });
-            }
-        } else {
-            return res.status(401).json({
-                message: "Not logged in.",
-            });
-        }
-    } catch (error) {
-        console.error("Error fetching user:", error);
-        return res.status(500).json({
-            message: "Internal server error.",
-        });
-    }
+    return res.json({uid: "user1"})
+
+    // Chnage to JWT
+    // try {
+    //     if (req.session && req.session.uid) {
+    //         const user = User.findAll({
+    //             where: { user_id: req.session.uid }
+    //         });
+
+    //         if (user.length!==0) {
+    //             return res.status(200).json({
+    //                 user: user[0],
+    //             });
+    //         } else {
+    //             return res.status(404).json({
+    //                 message: "User not found.",
+    //             });
+    //         }
+    //     } else {
+    //         return res.status(401).json({
+    //             message: "Not logged in.",
+    //         });
+    //     }
+    // } catch (error) {
+    //     console.error("Error fetching user:", error);
+    //     return res.status(500).json({
+    //         message: "Internal server error.",
+    //     });
+    // }
 };
 
 

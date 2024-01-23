@@ -8,12 +8,16 @@ npm run start
 
 ![image](./demo.png)
 
+## Update (Jan23 2024)
+### Done
+- Solved Logout interface not showing username issue
+
 ## Update (Jan17 2024)
 ### Done
 - Created Music player (play & pause)
 
 ### Todo
-- Solve user info not saved in session issue
+- Express -> JMT
 - Create Highest score in sudoku
 - Contact info window
 - Window size adjustment 
