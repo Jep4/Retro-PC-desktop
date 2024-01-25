@@ -8,6 +8,10 @@ npm run start
 
 ![image](./demo.png)
 
+## Update (Jan24 2024)
+### Done
+- Added window resizing feature
+
 ## Update (Jan23 2024)
 ### Done
 - Solved Logout interface not showing username issue
@@ -20,7 +24,6 @@ npm run start
 - Express -> JMT
 - Create Highest score in sudoku
 - Contact info window
-- Window size adjustment 
 - window minimize, maximize, close (nav bar)
 - group messages by date
 - Task bar to application

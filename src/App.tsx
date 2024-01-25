@@ -13,22 +13,22 @@ function App() {
   return (
     
     <div className="App">
-      <MainWindow left="30px" top="17px" width="600px" height="600px" title="SUDOKU CHALLENGE">
+      <MainWindow left="30px" top="17px" width="600px" height="600px" title="SUDOKU CHALLENGE" classname="Sudoku">
         <GameWindow />
       </MainWindow>
 
-      <MainWindow left="330px" top="230px" width="500px" height="370px" title="FILE EXPLORER">
+      <MainWindow left="330px" top="230px" width="500px" height="370px" title="FILE EXPLORER" classname="File-Explorer">
         <FileWindow></FileWindow>
       </MainWindow>
 
-      <MainWindow left="550px" top="480px" width="300px" height="370px" title="MESSANGER">
+      <MainWindow left="550px" top="480px" width="300px" height="370px" title="MESSANGER" classname="Messenger">
         <ChatWindow></ChatWindow>
       </MainWindow>
 
-      <MainWindow left="700px" top="100px" width="500px" height="200px" title="LOGIN">
+      <MainWindow left="700px" top="100px" width="500px" height="200px" title="LOGIN" classname="Login">
         <LoginWindow></LoginWindow>
       </MainWindow>
-      <MainWindow className="Music-Player" left="100" top="600px" width="500px" height="200px" title="MUSIC PLAYER">
+      <MainWindow classname="Music-Player" left="100" top="600px" width="500px" height="200px" title="MUSIC PLAYER">
         <MusicWindow></MusicWindow>
       </MainWindow>
 
