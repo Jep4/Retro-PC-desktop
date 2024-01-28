@@ -237,16 +237,28 @@
     font-size:25pt;
   }
 
-  .folderWrapper{
+  .folder-wrapper{
     padding: 10px;
     display:grid;
-    grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns:1fr 2fr;
     text-align: center;
+  }
+  .file-wrapper{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    text-align: center;
+
   }
   .one-file{
     text-wrap: wrap;
-    padding: 10px;
+    margin: 10px;
     cursor:pointer;
+    background-color: transparent;
+    border-radius: 20px;
+    user-select: none;
+  }
+  .one-file:hover{
+background-color: rgb(53, 53, 53);
   }
 
   

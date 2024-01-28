@@ -8,6 +8,13 @@ npm run start
 
 ![image](./demo.png)
 
+
+## Update (Jan24 2024)
+### Done
+- Synchronize task bar and nav bar
+- Implement maximize, minimize, close
+- Added Ranking page to Sudoku
+
 ## Update (Jan24 2024)
 ### Done
 - Added window resizing feature
@@ -22,9 +29,8 @@ npm run start
 
 ### Todo
 - Express -> JMT
-- Create Highest score in sudoku
-- Contact info window
-- window minimize, maximize, close (nav bar)
 - group messages by date
-- Task bar to application
 - Deco music player bar
+- Create Ranking / Score DB
+- Implement proper Sudoku logic
+- Edit z-index of Window when clicked

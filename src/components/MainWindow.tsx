@@ -8,6 +8,8 @@ interface MainWindowProps {
   height: string;
   title: string;
   classname: string;
+  isOpen: boolean;
+  onToggle: any;
   children?: React.ReactNode;
 }
 
@@ -18,6 +20,8 @@ const MainWindow: React.FC<MainWindowProps> = ({
   height,
   title,
   classname,
+  isOpen,
+  onToggle,
   children,
 }) => {
   const initialLeft = Number(left.replace(/[^0-9]/g, ''));
@@ -35,7 +39,6 @@ const MainWindow: React.FC<MainWindowProps> = ({
     direction: null,
   });
   const [size, setSize] = useState({ width: initialWidth, height: initialHeight });
-  const [showWindow, setShowWindow] = useState(true);
 
   const MIN_WIDTH = Math.max(1, Math.floor(initialWidth / 10));
   const MIN_HEIGHT = Math.max(1, Math.floor(initialHeight / 10));
@@ -43,107 +46,107 @@ const MainWindow: React.FC<MainWindowProps> = ({
   useEffect(() => {
 
     const handleDrag = (e: MouseEvent) => {
-        if (isDragging) {
-          setPosition((position) => ({
-            left: position.left + (e.clientX - startDragPosition.x),
-            top: position.top + (e.clientY - startDragPosition.y),
-          }));
-          setStartDragPosition({ x: e.clientX, y: e.clientY });
+      if (isDragging) {
+        setPosition((position) => ({
+          left: position.left + (e.clientX - startDragPosition.x),
+          top: position.top + (e.clientY - startDragPosition.y),
+        }));
+        setStartDragPosition({ x: e.clientX, y: e.clientY });
+      }
+
+
+      if (isResizing) {
+        const deltaX = e.clientX - resizeStart.x;
+        const deltaY = e.clientY - resizeStart.y;
+
+
+        switch (resizeStart.direction) {
+          case 'top':
+            setSize((prevSize) => ({
+              width: prevSize.width,
+              height: Math.max(MIN_HEIGHT, prevSize.height - deltaY),
+            }));
+            if (size.height !== MIN_HEIGHT) {
+              setPosition((prevPosition) => ({
+                left: prevPosition.left,
+                top: prevPosition.top + deltaY,
+              }));
+            }
+            break;
+          case 'top-right':
+            setSize((prevSize) => ({
+              width: Math.max(MIN_WIDTH, prevSize.width + deltaX),
+              height: Math.max(MIN_HEIGHT, prevSize.height - deltaY),
+            }));
+            if (size.height !== MIN_HEIGHT) {
+              setPosition((prevPosition) => ({
+                left: prevPosition.left,
+                top: prevPosition.top + deltaY,
+              }));
+            }
+            break;
+          case 'right':
+            setSize((prevSize) => ({
+              width: Math.max(MIN_WIDTH, prevSize.width + deltaX),
+              height: prevSize.height,
+            }));
+            break;
+          case 'bottom-right':
+            setSize((prevSize) => ({
+              width: Math.max(MIN_WIDTH, prevSize.width + deltaX),
+              height: Math.max(MIN_HEIGHT, prevSize.height + deltaY),
+            }));
+            break;
+          case 'bottom':
+            setSize((prevSize) => ({
+              width: prevSize.width,
+              height: Math.max(MIN_HEIGHT, prevSize.height + deltaY),
+            }));
+            break;
+          case 'bottom-left':
+            setSize((prevSize) => ({
+              width: Math.max(MIN_WIDTH, prevSize.width - deltaX),
+              height: Math.max(MIN_HEIGHT, prevSize.height + deltaY),
+            }));
+            if (size.width !== MIN_WIDTH) {
+              setPosition((prevPosition) => ({
+                left: prevPosition.left + deltaX,
+                top: prevPosition.top,
+              }));
+            }
+            break;
+          case 'left':
+            setSize((prevSize) => ({
+              width: Math.max(MIN_WIDTH, prevSize.width - deltaX),
+              height: prevSize.height,
+            }));
+            if (size.width !== MIN_WIDTH) {
+              setPosition((prevPosition) => ({
+                left: prevPosition.left + deltaX,
+                top: prevPosition.top,
+              }));
+            }
+            break;
+          case 'top-left':
+            setSize((prevSize) => ({
+              width: Math.max(MIN_WIDTH, prevSize.width - deltaX),
+              height: Math.max(MIN_HEIGHT, prevSize.height - deltaY),
+            }));
+            if (size.width !== MIN_WIDTH && size.height !== MIN_HEIGHT) {
+              setPosition((prevPosition) => ({
+                left: prevPosition.left + deltaX,
+                top: prevPosition.top + deltaY,
+              }));
+            }
+            break;
+          default:
+            break;
         }
 
-      
-        if (isResizing) {
-          const deltaX = e.clientX - resizeStart.x;
-          const deltaY = e.clientY - resizeStart.y;
-          
-      
-          switch (resizeStart.direction) {
-            case 'top':
-              setSize((prevSize) => ({
-                width: prevSize.width,
-                height: Math.max(MIN_HEIGHT, prevSize.height - deltaY),
-              }));
-              if (size.height !== MIN_HEIGHT) {
-                setPosition((prevPosition) => ({
-                  left: prevPosition.left,
-                  top: prevPosition.top + deltaY,
-                }));
-              }
-              break;
-            case 'top-right':
-              setSize((prevSize) => ({
-                width: Math.max(MIN_WIDTH, prevSize.width + deltaX),
-                height: Math.max(MIN_HEIGHT, prevSize.height - deltaY),
-              }));
-              if (size.height !== MIN_HEIGHT) {
-                setPosition((prevPosition) => ({
-                  left: prevPosition.left,
-                  top: prevPosition.top + deltaY,
-                }));
-              }
-              break;
-            case 'right':
-              setSize((prevSize) => ({
-                width: Math.max(MIN_WIDTH, prevSize.width + deltaX),
-                height: prevSize.height,
-              }));
-              break;
-            case 'bottom-right':
-              setSize((prevSize) => ({
-                width: Math.max(MIN_WIDTH, prevSize.width + deltaX),
-                height: Math.max(MIN_HEIGHT, prevSize.height + deltaY),
-              }));
-              break;
-            case 'bottom':
-              setSize((prevSize) => ({
-                width: prevSize.width,
-                height: Math.max(MIN_HEIGHT, prevSize.height + deltaY),
-              }));
-              break;
-            case 'bottom-left':
-              setSize((prevSize) => ({
-                width: Math.max(MIN_WIDTH, prevSize.width - deltaX),
-                height: Math.max(MIN_HEIGHT, prevSize.height + deltaY),
-              }));
-              if (size.width !== MIN_WIDTH) {
-                setPosition((prevPosition) => ({
-                  left: prevPosition.left + deltaX,
-                  top: prevPosition.top,
-                }));
-              }
-              break;
-            case 'left':
-              setSize((prevSize) => ({
-                width: Math.max(MIN_WIDTH, prevSize.width - deltaX),
-                height: prevSize.height,
-              }));
-              if (size.width !== MIN_WIDTH) {
-                setPosition((prevPosition) => ({
-                  left: prevPosition.left + deltaX,
-                  top: prevPosition.top,
-                }));
-              }
-              break;
-            case 'top-left':
-              setSize((prevSize) => ({
-                width: Math.max(MIN_WIDTH, prevSize.width - deltaX),
-                height: Math.max(MIN_HEIGHT, prevSize.height - deltaY),
-              }));
-              if (size.width !== MIN_WIDTH && size.height !== MIN_HEIGHT) {
-                setPosition((prevPosition) => ({
-                  left: prevPosition.left + deltaX,
-                  top: prevPosition.top + deltaY,
-                }));
-              }
-              break;
-            default:
-              break;
-          }
-      
-          setResizeStart({ x: e.clientX, y: e.clientY, direction: resizeStart.direction });
-        }
-      };
-      
+        setResizeStart({ x: e.clientX, y: e.clientY, direction: resizeStart.direction });
+      }
+    };
+
 
     const handleMouseUp = () => {
       setIsDragging(false);
@@ -175,12 +178,34 @@ const MainWindow: React.FC<MainWindowProps> = ({
   };
 
   const handleMinimize = () => {
-    setShowWindow(false);
+    onToggle(classname);
   };
+
+  const [maxed, setMaxed] = useState(false);
+
+  const handleMaximize = () => {
+    if(maxed){
+      
+
+  
+    setPosition({ left: parseInt(left), top: parseInt(top) });
+    setSize({ width: parseInt(width), height: parseInt(height) });
+    setMaxed(false);
+    }
+    else{
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+    
+      setPosition({ left: 0, top: 0 });
+      setSize({ width: screenWidth, height: screenHeight });
+      setMaxed(true)
+
+    }
+  }
 
   return (
     <div
-      className={`window-wrapper ${classname} ${showWindow ? 'showing' : 'minimized'}`}
+      className={`window-wrapper  ${isOpen ? 'showing' : 'minimized'}`}
       style={{ left: position.left, top: position.top, width: size.width, height: size.height }}
       onMouseDown={handleMouseDown}
     >
@@ -189,7 +214,7 @@ const MainWindow: React.FC<MainWindowProps> = ({
         <div className="minimize nav-btn" onClick={handleMinimize}>
           _
         </div>
-        <div className="maximize nav-btn">◻</div>
+        <div className="maximize nav-btn" onClick={handleMaximize}>◻</div>
         <div className="close nav-btn" onClick={handleMinimize}>
           X
         </div>
