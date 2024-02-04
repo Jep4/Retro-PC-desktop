@@ -9,6 +9,7 @@ import './App.css';
 import { useState } from 'react';
 function App() {
   const [openWindows, setOpenWindows] = useState(["Sudoku", "File-Explorer", "Messenger", "Login", "Music-Player"]);
+  const [windowZIndex, setWindowZIndex] = useState<{ [key: string]: number }>({});
 
 
   const appData = [
@@ -45,6 +46,15 @@ function App() {
   ];
 
   const handleWindow = (id: string) => {
+    setWindowZIndex((prevZIndex) => {
+      const currentMaxZIndex = Math.max(...Object.values(prevZIndex), 0);
+
+      return {
+        ...prevZIndex,
+        [id]: currentMaxZIndex + 1,
+      };
+    });
+
     setOpenWindows((prevWindows) => {
       const isWindowOpen = prevWindows.includes(id);
       return isWindowOpen
@@ -52,8 +62,6 @@ function App() {
         : [...prevWindows, id];
     });
   };
-  
-
   return (
     
     <div className="App">
@@ -64,6 +72,8 @@ function App() {
         title={title}
         isOpen ={openWindows.includes(id)}
         onToggle={()=>handleWindow(id)}
+        
+        zIndex={windowZIndex[id]}
         {...initialPosition}
         >
           {component}

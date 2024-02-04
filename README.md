@@ -9,6 +9,11 @@ npm run start
 ![image](./demo.png)
 
 
+## Update (Feb3 2024)
+### Done
+- Change z-index when the window is clicked
+
+
 ## Update (Jan24 2024)
 ### Done
 - Synchronize task bar and nav bar
@@ -28,9 +33,8 @@ npm run start
 - Created Music player (play & pause)
 
 ### Todo
-- Express -> JMT
+- Express -> JWT
 - group messages by date
 - Deco music player bar
 - Create Ranking / Score DB
 - Implement proper Sudoku logic
-- Edit z-index of Window when clicked

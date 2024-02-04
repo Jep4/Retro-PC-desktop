@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './MainWindow.css';
+import { click } from '@testing-library/user-event/dist/click';
 
 interface MainWindowProps {
   left: string;
@@ -10,6 +11,7 @@ interface MainWindowProps {
   classname: string;
   isOpen: boolean;
   onToggle: any;
+  zIndex: number;
   children?: React.ReactNode;
 }
 
@@ -22,6 +24,7 @@ const MainWindow: React.FC<MainWindowProps> = ({
   classname,
   isOpen,
   onToggle,
+  zIndex,
   children,
 }) => {
   const initialLeft = Number(left.replace(/[^0-9]/g, ''));
@@ -39,7 +42,7 @@ const MainWindow: React.FC<MainWindowProps> = ({
     direction: null,
   });
   const [size, setSize] = useState({ width: initialWidth, height: initialHeight });
-
+  const [newZIndex, setZIndex] = useState(zIndex);
   const MIN_WIDTH = Math.max(1, Math.floor(initialWidth / 10));
   const MIN_HEIGHT = Math.max(1, Math.floor(initialHeight / 10));
 
@@ -165,6 +168,17 @@ const MainWindow: React.FC<MainWindowProps> = ({
   }, [isDragging, startDragPosition, isResizing, resizeStart, MIN_WIDTH, MIN_HEIGHT]);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    const windows = document.querySelectorAll(".window-wrapper");
+    let maxZIndex = 0;
+
+    windows.forEach((window) => {
+      const zIndex = parseInt((window as HTMLElement).style.zIndex || "0", 10);
+      maxZIndex = Math.max(maxZIndex, zIndex);
+    });
+
+    const clickedWindow = e.currentTarget as HTMLElement;
+
+    clickedWindow.style.zIndex = (maxZIndex + 1).toString();
     const targetElement = e.target as HTMLElement;
 
     if (targetElement.classList.contains('nav-bar') || targetElement.closest('.nav-bar')) {
@@ -184,18 +198,18 @@ const MainWindow: React.FC<MainWindowProps> = ({
   const [maxed, setMaxed] = useState(false);
 
   const handleMaximize = () => {
-    if(maxed){
-      
+    if (maxed) {
 
-  
-    setPosition({ left: parseInt(left), top: parseInt(top) });
-    setSize({ width: parseInt(width), height: parseInt(height) });
-    setMaxed(false);
+
+
+      setPosition({ left: parseInt(left), top: parseInt(top) });
+      setSize({ width: parseInt(width), height: parseInt(height) });
+      setMaxed(false);
     }
-    else{
+    else {
       const screenWidth = window.innerWidth;
       const screenHeight = window.innerHeight;
-    
+
       setPosition({ left: 0, top: 0 });
       setSize({ width: screenWidth, height: screenHeight });
       setMaxed(true)
