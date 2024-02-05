@@ -8,33 +8,29 @@ npm run start
 
 ![image](./demo.png)
 
+## Update (Feb4 2024)
+- Grouping messages by date (MMM/Do)
+- Implemented Start & End Sudoku function
 
 ## Update (Feb3 2024)
-### Done
 - Change z-index when the window is clicked
 
-
 ## Update (Jan24 2024)
-### Done
 - Synchronize task bar and nav bar
 - Implement maximize, minimize, close
 - Added Ranking page to Sudoku
 
 ## Update (Jan24 2024)
-### Done
 - Added window resizing feature
 
 ## Update (Jan23 2024)
-### Done
 - Solved Logout interface not showing username issue
 
 ## Update (Jan17 2024)
-### Done
 - Created Music player (play & pause)
 
 ### Todo
 - Express -> JWT
-- group messages by date
 - Deco music player bar
 - Create Ranking / Score DB
 - Implement proper Sudoku logic

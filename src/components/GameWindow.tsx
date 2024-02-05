@@ -5,9 +5,11 @@ function GameWindow() {
   const [answerKey, setAnswerKey] = useState(Array(9).fill(null).map(() => Array(9).fill('0')));
   const [sudoku, setSudoku] = useState(Array(9).fill(null).map(() => Array(9).fill('0')));
   const [seeRank, setRank] =useState(false);
+  const [score, setScore] = useState(true);
   useEffect(() => {
     createSudoku();
   }, []); 
+;
 
   function createSudoku() {
     const newAnswerKey = Array(9).fill(null).map(() => Array(9).fill('0'));
@@ -26,6 +28,15 @@ function GameWindow() {
 
     setAnswerKey(newAnswerKey);
     setSudoku(newSudoku);
+  }
+
+  const startSudoku=()=>{
+    var startTime = new Date();
+    const startAt= startTime.toLocaleString();
+  }
+  const endSudoku=()=>{
+    var endTime = new Date();
+    const endAt = endTime.toLocaleString();
   }
 
   function inputControl(col: string) {
@@ -53,9 +64,16 @@ function GameWindow() {
           </div>
     
           <div className="game-text-filed">
-            User1 / / / Time Passed 0:12/ / / Current Score: 237
+            <span>User1 </span>
+            <span> | Time Passed: ? |  </span>
+            <span>  Time Left: 10:00  </span>
+            <br></br>
+            <span> Current Score: ?</span>
             <br></br>
             <br></br>
+            <button className="btn">
+              Start the game!!
+            </button>
             <button className="btn" onClick={()=>setRank(true)}>
               See Ranking
             </button>

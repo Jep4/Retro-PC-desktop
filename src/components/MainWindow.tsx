@@ -76,28 +76,10 @@ const MainWindow: React.FC<MainWindowProps> = ({
               }));
             }
             break;
-          case 'top-right':
-            setSize((prevSize) => ({
-              width: Math.max(MIN_WIDTH, prevSize.width + deltaX),
-              height: Math.max(MIN_HEIGHT, prevSize.height - deltaY),
-            }));
-            if (size.height !== MIN_HEIGHT) {
-              setPosition((prevPosition) => ({
-                left: prevPosition.left,
-                top: prevPosition.top + deltaY,
-              }));
-            }
-            break;
           case 'right':
             setSize((prevSize) => ({
               width: Math.max(MIN_WIDTH, prevSize.width + deltaX),
               height: prevSize.height,
-            }));
-            break;
-          case 'bottom-right':
-            setSize((prevSize) => ({
-              width: Math.max(MIN_WIDTH, prevSize.width + deltaX),
-              height: Math.max(MIN_HEIGHT, prevSize.height + deltaY),
             }));
             break;
           case 'bottom':
@@ -105,18 +87,6 @@ const MainWindow: React.FC<MainWindowProps> = ({
               width: prevSize.width,
               height: Math.max(MIN_HEIGHT, prevSize.height + deltaY),
             }));
-            break;
-          case 'bottom-left':
-            setSize((prevSize) => ({
-              width: Math.max(MIN_WIDTH, prevSize.width - deltaX),
-              height: Math.max(MIN_HEIGHT, prevSize.height + deltaY),
-            }));
-            if (size.width !== MIN_WIDTH) {
-              setPosition((prevPosition) => ({
-                left: prevPosition.left + deltaX,
-                top: prevPosition.top,
-              }));
-            }
             break;
           case 'left':
             setSize((prevSize) => ({
@@ -142,6 +112,36 @@ const MainWindow: React.FC<MainWindowProps> = ({
               }));
             }
             break;
+            case 'top-right':
+              setSize((prevSize) => ({
+                width: Math.max(MIN_WIDTH, prevSize.width + deltaX),
+                height: Math.max(MIN_HEIGHT, prevSize.height - deltaY),
+              }));
+              if (size.height !== MIN_HEIGHT) {
+                setPosition((prevPosition) => ({
+                  left: prevPosition.left,
+                  top: prevPosition.top + deltaY,
+                }));
+              }
+              break;
+              case 'bottom-left':
+                setSize((prevSize) => ({
+                  width: Math.max(MIN_WIDTH, prevSize.width - deltaX),
+                  height: Math.max(MIN_HEIGHT, prevSize.height + deltaY),
+                }));
+                if (size.width !== MIN_WIDTH) {
+                  setPosition((prevPosition) => ({
+                    left: prevPosition.left + deltaX,
+                    top: prevPosition.top,
+                  }));
+                }
+                break;
+                case 'bottom-right':
+                  setSize((prevSize) => ({
+                    width: Math.max(MIN_WIDTH, prevSize.width + deltaX),
+                    height: Math.max(MIN_HEIGHT, prevSize.height + deltaY),
+                  }));
+                  break;
           default:
             break;
         }
@@ -237,13 +237,13 @@ const MainWindow: React.FC<MainWindowProps> = ({
       <div className="main-window">{children}</div>
 
       <div className="resizer" data-direction="top" />
-      <div className="resizer" data-direction="top-right" />
       <div className="resizer" data-direction="right" />
-      <div className="resizer" data-direction="bottom-right" />
       <div className="resizer" data-direction="bottom" />
-      <div className="resizer" data-direction="bottom-left" />
       <div className="resizer" data-direction="left" />
       <div className="resizer" data-direction="top-left" />
+      <div className="resizer" data-direction="top-right" />
+      <div className="resizer" data-direction="bottom-left" />
+      <div className="resizer" data-direction="bottom-right" />
     </div>
   );
 };

@@ -64,12 +64,6 @@
   cursor: ns-resize;
 }
 
-.resizer[data-direction='top-right'] {
-  top: -5px;
-  right: -5px;
-  cursor: nesw-resize;
-}
-
 .resizer[data-direction='right'] {
   top: 50%;
   right: -5px;
@@ -77,12 +71,6 @@
   height: 100%;
   width: 10px;
   cursor: ew-resize;
-}
-
-.resizer[data-direction='bottom-right'] {
-  bottom: -5px;
-  right: -5px;
-  cursor: nwse-resize;
 }
 
 .resizer[data-direction='bottom'] {
@@ -94,11 +82,6 @@
   cursor: ns-resize;
 }
 
-.resizer[data-direction='bottom-left'] {
-  bottom: -5px;
-  left: -5px;
-  cursor: nesw-resize;
-}
 
 .resizer[data-direction='left'] {
   top: 50%;
@@ -108,12 +91,38 @@
   width: 10px;
   cursor: ew-resize;
 }
+.resizer[data-direction='top-right'] {
+  top: -5px;
+  right: -5px;
+  width: 17px;
+  height: 17px;
+  cursor: nesw-resize;
+}
+
 
 .resizer[data-direction='top-left'] {
   top: -5px;
   left: -5px;
+  width: 17px;
+  height: 17px;
   cursor: nwse-resize;
 }
+
+.resizer[data-direction='bottom-left'] {
+  bottom: -5px;
+  left: -5px;
+  width: 17px;
+  height: 17px;
+  cursor: nesw-resize;
+}
+.resizer[data-direction='bottom-right'] {
+  bottom: -5px;
+  right: -5px;
+  width: 17px;
+  height: 17px;
+  cursor: nwse-resize;
+}
+
 .minimized {
   display: none;
 }
@@ -166,13 +175,18 @@
 
   /* MESSAGE WINDOW */
 
+  .chat-wrapper{
+    
+    position: relative;
+    height:330px;
+  }
 
   .old-messages{
     font-size:11pt;
     word-break: break-all;
     overflow-y:auto;
     width: 100%;
-    height: 300px;
+    height: auto;
   }
 
   .msg{
@@ -195,7 +209,8 @@
   }
   
   .message-input-field{
-    position: relative;
+    position: absolute;
+    bottom:0;
   }
 
   .message-input{
