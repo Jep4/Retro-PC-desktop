@@ -8,6 +8,11 @@ npm run start
 
 ![image](./demo.png)
 
+## Update (Feb9 2024)
+- Sharing tokens in all windows (client-side)
+- Prevent anom user from using chatting
+- Issue: It can't get message info & allow login for anyone (axios error -- probably server/controller/login issue)
+
 ## Update (Feb4 2024)
 - Grouping messages by date (MMM/Do)
 - Implemented Start & End Sudoku function
