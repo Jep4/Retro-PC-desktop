@@ -2,10 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const server = require('http').createServer(app);
-const control = require('./controller')
-const {sequelize} = require('./database')
+const control = require('./controller');
+const { sequelize } = require('./database');
 var cookieParser = require('cookie-parser');
-
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session); 
 
@@ -31,11 +30,11 @@ app.use(session({
   saveUninitialized: true,
   store: sessionStore,
   secure: false,
-
   sameSite: 'None',
   cookie: { secure: false }
-}))
-const port = 8080
+}));
+
+const port = 8000;
 
 sequelize.sync()
   .then(() => {
@@ -45,26 +44,29 @@ sequelize.sync()
     console.log("Failed to sync db: " + err.message);
   });
 
-
-app.get('/chat', (req, res)=>{
+app.get('/chat', control.verifyToken, (req, res)=>{
     control.getMsgs(req, res);
 });
-app.post('/chat', (req, res)=>{
+
+app.post('/chat', control.verifyToken, (req, res)=>{
     control.postMsgs(req, res);
-})
-app.delete('/chat/:id', (req, res)=>{
+});
+
+app.delete('/chat/:id', control.verifyToken, (req, res)=>{
   control.deleteMsgs(req, res);
-})
+});
 
 app.post('/register', (req, res)=>{
   control.register(req, res);
-})
+});
+
 app.post('/login', (req, res)=>{
+  const { username, password } = req.body; 
   control.login(req, res);
-})
+});
+
 app.get('/getUser', (req, res)=>{
   control.getUser(req, res);
-})
+});
 
-
-server.listen(port, console.log("Server running"))
+server.listen(port, console.log("Server running"));

@@ -5,4 +5,4 @@ RUN npm install
 
 COPY . . 
 EXPOSE 3000
-CMD ["node", "./src/server/apps.tsx"]
+CMD ["nodemon", "./server/apps.tsx", "npm", "run", "start"]

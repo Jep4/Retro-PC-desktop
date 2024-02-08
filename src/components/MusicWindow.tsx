@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import sound from "../resources/bg_music.mp3"
 import "./MainWindow.css"
 
-function MusicWindow() {
+interface MusicWindowProps {
+    token: string | null;
+    setToken: React.Dispatch<React.SetStateAction<string | null>>;
+  }
+  
+  
+  const MusicWindow: React.FC<MusicWindowProps>=({token, setToken}) =>{
     var [isPlaying, setPlaying] = useState(false);
     const playStatus = isPlaying ? "||" : "⩥";
     var audioRef =React.useRef(new Audio(sound));

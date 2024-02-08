@@ -2,7 +2,13 @@ import React from 'react';
 
 
 import "./MainWindow.css"
-function FileWindow() {
+interface FilewindowProps {
+  token: string | null;
+  setToken: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+
+const FileWindow: React.FC<FilewindowProps>=({token, setToken}) =>{
 
     const tempFile = ["email", "gitHub", "resume", "blog", "File5", "File6"];
 

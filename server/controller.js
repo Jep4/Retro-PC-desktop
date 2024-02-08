@@ -1,6 +1,8 @@
 const { sequelize } = require('./database');
 const { Message, User, Score } = require('./models')
 const bcrypt =  require("bcrypt")
+const jwt = require('jsonwebtoken');
+
 
 
 const getMsgs= async (req, res) => {
@@ -89,25 +91,8 @@ const login = async (req, res) => {
             const passwordMatch = await bcrypt.compare(password, user[0].password);
 
             if (passwordMatch) {
-                
-                res.send({
-                    uid: user[0].user_id,
-                    message: "Successfully logged in!",
-                });
-                // req.session.uid =user[0].user_id;
-                // req.session.save(function(err) {
-                    // if (err) {
-                    //     console.error("Error saving session:", err);
-                    // } else {
-                    //     console.log("Session saved successfully:", req.session);
-
-                    //      res.send({
-                    //         uid: user[0].user_id,
-                    //         message: "Successfully logged in!",
-                    //     });
-
-                    // }
-                // });
+                const token = jwt.sign({ userId: user[0].id }, 'yayyay_secret_key', { expiresIn: '1h' });
+                res.json({ token });
             } else {
                 return res.status(401).json({
                     message: "Invalid password.",
@@ -122,37 +107,31 @@ const login = async (req, res) => {
     }
 };
 
+const verifyToken = (req, res, next) => {
+    const token = req.headers.authorization;
+
+    if (!token) {
+        return res.status(401).json({ message: 'No token provided.' });
+    }
+
+    jwt.verify(token, 'yayay_secret_key', (err, decoded) => {
+        if (err) {
+            alert("Failed to authenticate token");
+            return res.status(401).json({ message: 'Failed to authenticate token.' });
+        }
+        
+        req.userId = decoded.userId;
+        next();
+    });
+};
+
+module.exports = verifyToken;
+
+
 const getUser = async (req, res) => {
 
     return res.json({uid: "user1"})
 
-    // Chnage to JWT
-    // try {
-    //     if (req.session && req.session.uid) {
-    //         const user = User.findAll({
-    //             where: { user_id: req.session.uid }
-    //         });
-
-    //         if (user.length!==0) {
-    //             return res.status(200).json({
-    //                 user: user[0],
-    //             });
-    //         } else {
-    //             return res.status(404).json({
-    //                 message: "User not found.",
-    //             });
-    //         }
-    //     } else {
-    //         return res.status(401).json({
-    //             message: "Not logged in.",
-    //         });
-    //     }
-    // } catch (error) {
-    //     console.error("Error fetching user:", error);
-    //     return res.status(500).json({
-    //         message: "Internal server error.",
-    //     });
-    // }
 };
 
 
@@ -162,5 +141,6 @@ module.exports = {
     deleteMsgs,
     register,
     login,
-    getUser
+    getUser,
+    verifyToken
 }

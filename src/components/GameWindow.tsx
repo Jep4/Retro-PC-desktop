@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './MainWindow.css';
 
-function GameWindow() {
+interface GameWindowProps {
+  token: string | null;
+  setToken: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+
+const GameWindow: React.FC<GameWindowProps>=({token, setToken}) =>{
   const [answerKey, setAnswerKey] = useState(Array(9).fill(null).map(() => Array(9).fill('0')));
   const [sudoku, setSudoku] = useState(Array(9).fill(null).map(() => Array(9).fill('0')));
   const [seeRank, setRank] =useState(false);

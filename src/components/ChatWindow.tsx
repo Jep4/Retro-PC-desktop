@@ -1,34 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'
-import "./MainWindow.css"
+import axios from 'axios';
+import "./MainWindow.css";
 import moment from 'moment';
-import models from '../server/models';
+import models from '../../server/models';
 import { DataTypes } from 'sequelize';
 
 
-function ChatWindow() {
-
+interface ChatWindowProps {
+    token: string | null;
+    setToken: React.Dispatch<React.SetStateAction<string | null>>;
+  }
+  
+  
+  const ChatWindow: React.FC<ChatWindowProps>=({token, setToken}) =>{
     const [data, setData] = useState([]);
     const [idValue, setIdValue] = useState("");
     const [messageValue, setMessageValue] = useState("");
     const [groupedData, setGroupedData] = useState<[string, typeof models.Message[]][]>([]);
+    const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        setLoggedIn(localStorage.getItem('token') ? true : false);
+    }, []);
 
     const fetchData = async () => {
         try {
             const res = await axios.get("http://localhost:8080/chat");
             groupData(res.data);
-        }
-        catch (e) {
+        } catch (e) {
             console.error("Error fetching data:", e);
         }
     };
 
     const groupData = (msgs: typeof models.Message[]) => {
-        const grouped: Record<string, typeof models.Message[]> = {}
+        const grouped: Record<string, typeof models.Message[]> = {};
         msgs.forEach((msg) => {
             const date = moment(msg.createdAt).format("MMM Do");
             if (!grouped[date]) {
@@ -36,15 +45,16 @@ function ChatWindow() {
             }
             grouped[date].push(msg);
 
-            // The function that sets the "grouped" as a pair of key-value array
-            setGroupedData(Object.entries(grouped))
-        })
-
-    }
+            setGroupedData(Object.entries(grouped));
+        });
+    };
 
     const newMessage = async () => {
         try {
             await axios.post("http://localhost:8080/chat", {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
                 id: idValue,
                 body: messageValue,
             });
@@ -53,25 +63,24 @@ function ChatWindow() {
 
             setIdValue('');
             setMessageValue('');
+        } catch (e) {
+            console.log("Error sending message: ", e);
         }
-        catch (e) {
-            console.log("Error sending message: ", e)
-        }
-    }
+    };
 
     const deleteMessage = async (id: number) => {
         try {
             await axios.delete(`http://localhost:8080/chat/${id}`);
             fetchData();
-        }
-        catch (e) {
+        } catch (e) {
             console.error("Error fetching data:", e);
         }
-    }
+    };
+    
     return (
         <div className='chat-wrapper'>
             <div className='old-messages'>
-                {groupedData.map(([date, messages], index) => (
+                { groupedData.map(([date, messages], index) => (
                     <div key={index}>
                         <div className='date-header'>{date}</div>
                         {messages.map((msg: typeof models.Message, index: number) => (
@@ -87,14 +96,20 @@ function ChatWindow() {
                     </div>
                 ))}
             </div>
-            <form className='message-input-field' onSubmit={(e) => { e.preventDefault(); newMessage(); }}>
-                <input className='user-input' name="id-value" placeholder='Username' required
-                    onChange={(e) => setIdValue(e.target.value)} value={idValue}></input>
-                <input className='message-input' name="message-value" placeholder='Enter your message...' required
-                    onChange={(e) => setMessageValue(e.target.value)} value={messageValue}></input>
-                <button className='submit-btn' type='submit'></button>
-            </form>
+            {loggedIn ? (
+                <form className='message-input-field' onSubmit={(e) => { e.preventDefault(); newMessage(); }}>
+                    <input className='user-input' name="id-value" placeholder='Username' required
+                        onChange={(e) => setIdValue(e.target.value)} value={idValue}></input>
+                    <input className='message-input' name="message-value" placeholder='Enter your message...' required
+                        onChange={(e) => setMessageValue(e.target.value)} value={messageValue}></input>
+                    <button className='submit-btn' type='submit'></button>
+                </form>
+            ) : (
+                <div className='login-message'>Please login to use this feature.</div>
+            )}
         </div>
     );
+    
+    
 }
 export default ChatWindow;

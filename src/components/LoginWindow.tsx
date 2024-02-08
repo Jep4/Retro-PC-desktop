@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import "./MainWindow.css"
 import axios from 'axios';
 
-function LoginWindow() {
+interface LoginWindowProps {
+    token: string | null;
+    setToken: React.Dispatch<React.SetStateAction<string | null>>;
+  }
+  
+  
+  const LoginWindow: React.FC<LoginWindowProps>=({token, setToken}) =>{
 
     const [logedIn, setLogin] = useState(false);
     const [wantRegister, setRegister] = useState(false);
@@ -75,6 +81,13 @@ useEffect(()=>{
                 id: username.value,
                 password: password.value,
                 is_admin: false
+            })
+            .then(response=>{
+                const token = response.data.token;
+                localStorage.setItem('token', token);
+            })
+            .catch(error=>{
+                console.error('Login failed: ',error);
             });
             setLogin(true);
         alert("Successfully Logged in!");
@@ -107,7 +120,7 @@ useEffect(()=>{
                     <input type='password' className='pw-input' autoComplete='true' placeholder='Enter your password...' required>
                     </input>
                     <button className=' confirm-button btn' type='submit' > 
-                    Submit</button>
+                    Login</button>
                 </form>
                 <span>No account?</span>
                 <button className='register-button btn' onClick={goRegister}>Register  &gt; &gt; </button>
