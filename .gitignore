@@ -22,5 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/testing/selenium-java-4.17.0/
-/testing/chrome-win64/
+/testing/lib/
+.exe
